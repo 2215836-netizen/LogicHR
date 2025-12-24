@@ -125,3 +125,50 @@ class HRLogicEngine:
         LIMIT 10
         """
         return pd.read_sql_query(query, self.conn)
+
+    def run_work_pattern_analysis(self):
+        """
+        Analyze average work hours by Day of Week for each department.
+        """
+        query = """
+        SELECT 
+            e.department,
+            case cast (strftime('%w', a.date) as integer)
+              when 0 then 'Sunday'
+              when 1 then 'Monday'
+              when 2 then 'Tuesday'
+              when 3 then 'Wednesday'
+              when 4 then 'Thursday'
+              when 5 then 'Friday'
+              when 6 then 'Saturday'
+            end as day_of_week,
+            AVG((julianday(a.date || ' ' || a.check_out) - julianday(a.date || ' ' || a.check_in)) * 24) as avg_hours,
+            COUNT(*) as record_count
+        FROM attendance a
+        JOIN employees e ON a.emp_id = e.emp_id
+        WHERE a.check_out IS NOT NULL
+        GROUP BY e.department, day_of_week
+        ORDER BY e.department, 
+                 CASE day_of_week
+                    WHEN 'Monday' THEN 1
+                    WHEN 'Tuesday' THEN 2
+                    WHEN 'Wednesday' THEN 3
+                    WHEN 'Thursday' THEN 4
+                    WHEN 'Friday' THEN 5
+                    WHEN 'Saturday' THEN 6
+                    WHEN 'Sunday' THEN 7
+                 END
+        """
+        return pd.read_sql_query(query, self.conn)
+
+    def get_leakage_query(self):
+        return """
+        SELECT 
+            e.department,
+            strftime('%w', a.date) as day_idx, -- 0=Sun, 1=Mon...
+            AVG(hours_worked) as avg_hours
+        FROM attendance a
+        JOIN employees e ON ...
+        GROUP BY department, day_of_week
+        HAVING avg_hours > 9.0 -- 9시간 이상 근무 시 '과부하/비효율' 의심
+        """

@@ -150,6 +150,48 @@ try:
         )
         st.plotly_chart(fig_scatter, use_container_width=True)
     
+    # --- LEAKAGE DETECTOR Section (New Feature) ---
+    st.header("🕵️ 인건비 누수 탐지 (Leakage Detector)")
+    st.markdown("데이터 패턴 분석을 통해 **비효율적으로 비용이 새나가는 지점**을 찾아냅니다.")
+    
+    df_pattern = engine.run_work_pattern_analysis()
+    
+    # Heatmap-style visual using Bar Chart
+    # Finding the "Leakage Point" (Max Avg Hours)
+    max_leakage = df_pattern.loc[df_pattern['avg_hours'].idxmax()]
+    
+    col_leak1, col_leak2 = st.columns([1, 2])
+    
+    with col_leak1:
+        st.error(f"🚨 **탐지된 누수 리스크**")
+        st.markdown(f"""
+        **'{max_leakage['department']}'** 부서는  
+        **{max_leakage['day_of_week']}**에 평균 **{max_leakage['avg_hours']:.1f}시간**으로  
+        가장 근무 강도가 높습니다.
+        
+        👉 *인사이트: 해당 요일에 연장 근무가 집중되고 있으나, 성과 지표와의 상관관계를 점검하여 근무 일정 조정이 필요합니다.*
+        """)
+        
+        with st.expander("🔍 탐지 쿼리 보기"):
+            st.code(engine.get_leakage_query(), language='sql')
+
+    with col_leak2:
+        # Pivot for better visualization if needed, or just grouped bar
+        fig_pattern = px.bar(
+            df_pattern,
+            x='day_of_week',
+            y='avg_hours',
+            color='department',
+            barmode='group',
+            title="요일별 부서 근무 강도 (Work Load Pattern)",
+            labels={'avg_hours': '평균 근무시간', 'day_of_week': '요일'},
+            category_orders={'day_of_week': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']},
+            template="plotly_white"
+        )
+        # Add Reference Line (Standard 8 hours)
+        fig_pattern.add_hline(y=8.0, line_dash="dash", line_color="green", annotation_text="표준 8시간")
+        st.plotly_chart(fig_pattern, use_container_width=True)
+
     st.markdown("---")
     
     # --- Detail Tabs ---
