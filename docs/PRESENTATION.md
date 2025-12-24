@@ -9,35 +9,56 @@ style: |
     font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
     justify-content: center;
     font-size: 28px;
-    padding: 40px;
+    padding: 50px;
+    background-color: #ffffff;
+    color: #2d3748;
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   }
   h1 {
-    color: #2c3e50;
-    font-size: 48px;
-    margin-bottom: 20px;
+    color: #1a365d;
+    font-size: 56px;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
   }
   h2 {
-    color: #34495e;
-    font-size: 36px;
-    margin-bottom: 15px;
+    color: #2b6cb0;
+    font-size: 40px;
+    font-weight: 700;
+    border-bottom: 3px solid #4299e1;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
   }
   h3 {
-    font-size: 30px;
-    color: #2980b9;
+    font-size: 32px;
+    color: #2c5282;
+    margin-top: 20px;
   }
   strong {
-    color: #e74c3c;
+    color: #e53e3e;
+    font-weight: 800;
+    background: linear-gradient(120deg, transparent 60%, #fed7d7 60%);
   }
   blockquote {
-    background: #e1f5fe;
-    border-left: 10px solid #0288d1;
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
+    background: #ebf8ff;
+    border-left: 10px solid #4299e1;
+    margin: 20px 0;
+    padding: 20px 30px;
     font-style: italic;
+    color: #2a4365;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   }
   code {
-    background-color: #e0e0e0;
-    color: #d35400;
+    background-color: #edf2f7;
+    color: #c05621;
+    font-family: 'Consolas', 'Monaco', monospace;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  li {
+    margin-bottom: 12px;
   }
 ---
 
