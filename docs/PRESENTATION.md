@@ -1,61 +1,114 @@
-# LogicHR: 데이터로 증명하는 인사이트
-> "감(Gut Feeling)이 아닌, SQL 로직으로 인사의 효율성을 증명하다"
+---
+marp: true
+theme: gaia
+class: lead
+paginate: true
+backgroundColor: #f0f4f8
+style: |
+  section {
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    justify-content: center;
+    font-size: 28px;
+    padding: 40px;
+  }
+  h1 {
+    color: #2c3e50;
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  h2 {
+    color: #34495e;
+    font-size: 36px;
+    margin-bottom: 15px;
+  }
+  h3 {
+    font-size: 30px;
+    color: #2980b9;
+  }
+  strong {
+    color: #e74c3c;
+  }
+  blockquote {
+    background: #e1f5fe;
+    border-left: 10px solid #0288d1;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    font-style: italic;
+  }
+  code {
+    background-color: #e0e0e0;
+    color: #d35400;
+  }
+---
 
-[📥 **파워포인트(.pptx) 다운로드**](./LogicHR_Presentation.pptx)
+# LogicHR
+## 데이터로 증명하는 인사이트
+
+> "감(Gut Feeling)이 아닌, **SQL 로직**으로 인사의 효율성을 증명하다"
+
+Team. 2215836-netizen
 
 ---
 
-## 1. 문제 정의 (Problem)
-### "누가 일을 잘하는가?"라는 질문의 모호함
-- **현황**: 많은 기업이 단순히 '매출'이 높거나 '야근'을 많이 하는 부서를 고성과로 착각합니다.
-- **Pain Point**:
-    - 인건비(투입) 대비 성과(산출)를 정량적으로 비교하기 어렵습니다.
-    - 특정 부서에서 불필요한 연장 근무(Leakage)가 발생해도 감지하지 못합니다.
-- **해결책**: LogicHR은 **SQL 기반의 데이터 분석**을 통해 이 문제를 논리적으로 해결합니다.
+# 1. 문제 정의 (Problem)
+### "누가 일을 잘하는가?"
+
+*   **현황**: 많은 기업이 단순히 '매출'이 높거나 '야근'이 많은 부서를 고성과로 착각함
+*   **Pain Point**:
+    1.  인건비(Input) 대비 성과(Output)를 정량적으로 비교하기 어려움
+    2.  특정 부서에서 불필요한 연장 근무(**Leakage**)가 발생해도 감지 못함
 
 ---
 
-## 2. 솔루션 (Solution)
+# 2. 솔루션 (Solution)
 ### LogicHR: 데이터 기반 HR 의사결정 시스템
-- **Core Engine**: Python + SQLite (In-Memory DB)
-- **Key Metric**: 효율 지수 (Efficiency Index) & 인건비 누수 탐지 (Leakage Detector)
-- **Value**: 복잡한 데이터 속에서 **"비용 효율성"**과 **"리스크"**를 1초 만에 추출합니다.
+
+*   **Core Engine**: Python + SQLite (In-Memory DB)
+*   **Key Metric**: 
+    *   효율 지수 (Efficiency Index)
+    *   인건비 누수 탐지 (Leakage Detector)
+*   **Value**: 복잡한 데이터 속에서 **"비용 효율성"**과 **"리스크"**를 1초 만에 추출
 
 ---
 
-## 3. 핵심 기능 (Key Features)
+# 핵심 기능 1: 효율 지수
+### (Efficiency Index)
 
-### 📊 1. 효율 지수 (Efficiency Index)
-> "단순한 성과 1등이 아니라, 가성비 1등을 찾습니다."
-- **Logic**: `(목표 달성률 * 100) / (총 인건비 / 100만)`
-- **SQL 활용**: `JOIN`을 통해 성과와 근태 테이블을 결합하고, `Aggregation`으로 비용을 집계합니다.
-- **효과**: 적은 인원으로 높은 성과를 낸 '숨은 영웅' 부서를 발굴합니다.
+> "단순한 성과 1등이 아니라, **가성비 1등**을 찾습니다."
 
-### 🕵️ 2. 인건비 누수 탐지 (Leakage Detector)
-> "데이터 패턴으로 돈이 새는 구멍을 막습니다."
-- **Logic**: `GROUP BY day_of_week` & `HAVING avg_hours > 9`
-- **인사이트**: "특정 요일에만 야근이 폭증하지만 성과는 낮은 부서"를 자동으로 경고(Alert)합니다.
-- **가치**: 불필요한 초과 근무 수당을 절감하고 업무 프로세스를 개선합니다.
-
-### 🛠 3. Code Reveal (투명성)
-> "블랙박스는 없습니다. 모든 로직은 공개됩니다."
-- 분석에 사용된 **SQL 쿼리 원본(Raw Query)**을 대시보드에서 즉시 확인할 수 있습니다.
-- 이는 분석 결과의 신뢰도를 높이고, 데이터 기반 의사결정 과정을 투명하게 보여줍니다.
+*   **Logic**: `(목표 달성률 * 100) / (총 인건비 / 100만)`
+*   **SQL 활용**: `JOIN`으로 성과+근태 결합, `Aggregation`으로 비용 집계
+*   **효과**: 적은 인원으로 높은 성과를 낸 '숨은 영웅' 부서 발굴
 
 ---
 
-## 4. 기술 아키텍처 (Tech Stack)
-- **Language**: Python 3.9+
-- **Database**: SQLite (별도 서버 구축 없이 로컬 파일/메모리에서 고성능 처리)
-- **Visualization**: Streamlit, Plotly Express (Interactive Dashboard)
-- **Collaboration**: Git, GitHub
+# 핵심 기능 2: 인건비 누수 탐지
+### (Leakage Detector)
+
+> "데이터 패턴으로 **돈이 새는 구멍**을 막습니다."
+
+*   **Logic**: `GROUP BY day_of_week` & `HAVING avg_hours > 9`
+*   **인사이트**: "특정 요일에만 야근이 폭증하지만 성과는 낮은 부서" 경고(Alert)
+*   **가치**: 불필요한 초과 근무 수당 절감 및 업무 프로세스 개선
 
 ---
 
-## 5. 결론 및 기대 효과 (Conclusion)
-**LogicHR 도입 시 기대 효과:**
+# 4. 기술 아키텍처 (Tech Stack)
+
+*   **Language**: Python 3.9+
+*   **Database**: **SQLite** 
+    *   외부 DB 서버 없이 로컬 파일/메모리에서 고성능 처리
+*   **Visualization**: Streamlit, Plotly Express
+    *   Interactive Dashboard 구현
+*   **Collaboration**: Git, GitHub
+
+---
+
+# 5. 결론 및 기대 효과
+
 1.  **비용 절감**: 비효율적인 연장 근무 패턴 식별 및 개선
 2.  **공정한 평가**: 투입 비용까지 고려한 입체적인 성과 평가 가능
-3.  **데이터 리터러시**: 직관적인 대시보드와 SQL 공개로 조직 전체의 데이터 활용 능력 향상
+3.  **데이터 리터러시**: 직관적인 대시보드와 SQL 공개로 조직 역량 강화
 
-> **"LogicHR은 단순한 대시보드가 아닙니다. 조직의 건강한 성장을 돕는 나침반입니다."**
+> **"LogicHR은 단순한 대시보드가 아닙니다.**
+> **조직의 건강한 성장을 돕는 나침반입니다."**
