@@ -26,7 +26,13 @@ LogicHR은 이를 해결하기 위해 다음과 같은 기능을 제공합니다
 -   **Output**: 부서별 목표 달성률
 -   **Logic**: `SQL Window Function` 및 `Aggregation` 활용
 
-### 2. SQL 코드 리빌 (Code Reveal)
+### 2. 인건비 누수 탐지 (Leakage Detector)
+보안/리스크 관리 관점에서 **"돈이 새는 지점"**을 찾아냅니다.
+-   **Input**: 요일별/시간대별 근무 데이터
+-   **Output**: 비효율적 연장 근무가 발생하는 부서 및 요일 자동 탐지 (Risk Alert)
+-   **Logic**: `SQL Group By` & `Having` 절을 활용한 패턴 매칭
+
+### 3. SQL 코드 리빌 (Code Reveal)
 개발자의 논리적 사고 과정을 보여주기 위해, 분석에 사용된 **SQL 쿼리 원본을 대시보드에서 직접 공개**합니다.
 -   어떻게 데이터를 조인(JOIN)했는지
 -   어떻게 결측치를 처리하고 그룹핑(GROUP BY)했는지 확인 가능
