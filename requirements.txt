@@ -3,3 +3,4 @@ streamlit
 faker
 plotly
 openpyxl
+python-pptx
