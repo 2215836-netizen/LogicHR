@@ -6,7 +6,7 @@ paginate: true
 backgroundColor: #f0f4f8
 style: |
   section {
-    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
     justify-content: center;
     font-size: 28px;
     padding: 40px;
